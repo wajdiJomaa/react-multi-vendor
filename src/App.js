@@ -6,7 +6,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
 import { AuthProvider } from './context/AuthContext';
 
-import Header from './components/Header';
+import Navbar from './components/Navbar';
 import LoginRequired from './utils/LoginRequired';
 import NoLoginRequired from './utils/NoLoginRequired'
 import RegisterPage from './pages/RegisterPage';
@@ -14,11 +14,10 @@ import RegisterPage from './pages/RegisterPage';
 function App() {
   return (
     <div>
+      <Navbar/>
       <Router>
       <AuthProvider>
-        <Header/>
         <Routes>
-      
           <Route element={ <LoginRequired/>} path="/">
             <Route element= { <HomePage/>} path="/" exact />
           </Route>

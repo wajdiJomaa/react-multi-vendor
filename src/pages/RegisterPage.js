@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm, FormProvider } from "react-hook-form";
 import Input from '../components/Input';
+import './Register.css'
 
 const RegisterPage = () => {
     const methods = useForm();
@@ -153,7 +154,7 @@ const RegisterPage = () => {
                                 variant="contained"
                                 sx={{ mt: 3.5, mb: 2 }}
                                 style={{
-                                    backgroundColor: "#00695c",
+                                    backgroundColor: "#232F3E",
                                     fontWeight: "bold",
                                     fontSize: 14
                                 }}
@@ -163,9 +164,13 @@ const RegisterPage = () => {
                             </Button>
                             <Grid container justifyContent="flex-end">
                                 <Grid item>
-                                    {/* <Link href="#" variant="body2">
-                                    Already have an account? Sign in
-                                </Link> */}
+                                <div className="centered-link">
+                                <p>Already have an account?
+                                 <Link href="/login" variant="body2">
+                                     log in
+                                </Link> 
+                                </p>
+                                </div>
                                 </Grid>
                             </Grid>
                         </Box>
