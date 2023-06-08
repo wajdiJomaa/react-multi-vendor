@@ -8,9 +8,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useForm, FormProvider } from "react-hook-form";
+import Input from '../components/Input';
 
 const RegisterPage = () => {
+    const methods = useForm();
+
 
     const defaultTheme = createTheme();
     return (
@@ -28,139 +31,152 @@ const RegisterPage = () => {
                     <Typography component="h1" variant="h5" color="#00695c" sx={{ fontWeight: 'bold' }}>
                         Sign Up
                     </Typography>
-                    <Box component="form" noValidate onSubmit={registerUser} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <Typography color="#616161" sx={{ fontWeight: 'bold', fontSize: 14 }}>First Name</Typography>
-                                <TextField sx={{ mb: 0.5 }}
-                                    autoComplete="given-name"
-                                    name="first_name"
-                                    required
-                                    fullWidth
-                                    id="firstName"
-                                    variant="outlined"
-                                    autoFocus
-                                    size='small'
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Typography color="#616161" sx={{ fontWeight: 'bold', fontSize: 14 }}>Last Name</Typography>
-                                <TextField sx={{ mb: 0.5 }}
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    name="last_name"
-                                    size='small'
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography color="#616161" sx={{ fontWeight: 'bold', fontSize: 14 }}>Username</Typography>
-                                <TextField sx={{ mb: 0.5 }}
-                                    required
-                                    fullWidth
-                                    id="username"
-                                    name="username"
-                                    autoComplete="username"
-                                    size='small'
+                    <FormProvider {...methods}>
+                        <Box component="form" noValidate onSubmit={(e) => e.preventDefault()} sx={{ mt: 3 }}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} sm={6}>
+                                    <Input label="First Name" name="first_name"
+                                        validate={{
+                                            required: {
+                                                value: true,
+                                                message: 'Field Required',
+                                            },
+                                            maxLength: {
+                                                value: 16,
+                                                message: 'Maximum 16 Charachters'
+                                            }
+                                        }} />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <Input label="Last Name" name="last_name" validate={{
+                                        required: {
+                                            value: true,
+                                            message: 'Field Required',
+                                        },
+                                        maxLength: {
+                                            value: 16,
+                                            message: 'Maximum 16 Charachters'
+                                        }
+                                    }}
+                                    />
 
-                                />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Input label="Username" name="username" validate={{
+                                        required: {
+                                            value: true,
+                                            message: 'Field Required',
+                                        },
+                                        maxLength: {
+                                            value: 16,
+                                            message: 'Maximum 16 Charachters'
+                                        }
+                                    }} />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Input label="Email Address" name="email" validate={{
+                                        required: {
+                                            value: true,
+                                            message: 'Field Required',
+                                        },
+                                        maxLength: {
+                                            value: 16,
+                                            message: 'Maximum 16 Charachters'
+                                        }
+                                    }} />
+
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Input label="Phone Number" name="phone"
+                                        validate={{
+                                            required: {
+                                                value: true,
+                                                message: 'Field Required',
+                                            },
+                                            pattern: {
+                                                value: /^(?:\+961|961)?(1|0?3[0-9]?|[4-6]|70|71|76|78|79|7|81?|9)\d{6}/i,
+                                                message: 'Invalid Phone Number'
+                                            }
+                                        }}
+                                    />
+
+                                </Grid>
+                                <Grid item xs={12} validate={{
+                                    required: {
+                                        value: true,
+                                        message: 'Field Required',
+                                    },
+                                    maxLength: {
+                                        value: 16,
+                                        message: 'max length is 16'
+                                    }
+                                }}>
+                                    <Input label="Address" name="address" />
+                                </Grid>
+
+                                <Grid item xs={12} sm={6}>
+                                    <Input label="Password" name="password" validate={{
+                                        required: {
+                                            value: true,
+                                            message: 'Field Required',
+                                        },
+                                        maxLength: {
+                                            value: 16,
+                                            message: 'Maximum 16 Charachters'
+                                        },
+                                        minLength: {
+                                            value: 6,
+                                            message: 'Minimum 6 Charachters'
+                                        }
+                                    }} />
+
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <Input label="Confirm Password" name="confirm_password" validate={{
+                                        required: {
+                                            value: true,
+                                            message: 'Field Required',
+                                        },
+                                        validate: (value) => {
+                                            if (methods.watch('password') != value) {
+                                                return "No Match";
+                                            }
+                                        },
+
+                                    }} />
+
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Typography color="#616161" sx={{ fontWeight: 'bold', fontSize: 14 }}>Email Address</Typography>
-                                <TextField sx={{ mb: 0.5 }}
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    name="email"
-                                    autoComplete="email"
-
-                                    size='small'
-
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                            <Typography color="#616161" sx={{ fontWeight: 'bold', fontSize: 14 }}>Phone Number</Typography>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="phone"
-                                    name="phone"
-                                    autoComplete="phone"
-                                    size='small'
-
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                            <Typography color="#616161" sx={{ fontWeight: 'bold', fontSize: 14 }}>Address</Typography>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="address"
-                                    name="address"
-                                    autoComplete="address"
-                                    size='small'
-
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={6}>
-                                <Typography color="#616161" sx={{ fontWeight: 'bold', fontSize: 14 }}>Password</Typography>
-                                <TextField sx={{ mb: 0.5 }}
-                                    required
-                                    fullWidth
-                                    name="password"
-
-                                    type="password"
-                                    id="password"
-                                    autoComplete="new-password"
-                                    size='small'
-
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Typography color="#616161" sx={{ fontWeight: 'bold', fontSize: 14 }}>Confirm Password</Typography>
-                                <TextField 
-                                    required
-                                    fullWidth
-                                    name="confirm_password"
-                                    type="password"
-                                    id="confirm_password"
-                                    autoComplete="new-password"
-                                    size='small'
-                                    
-                                />
-                            </Grid>
-                        </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3.5, mb: 2}}
-                            style={{
-                                backgroundColor: "#00695c",
-                                fontWeight: "bold",
-                                fontSize: 14
-                            }}
-                        >
-                            Sign Up
-                        </Button>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item>
-                                {/* <Link href="#" variant="body2">
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3.5, mb: 2 }}
+                                style={{
+                                    backgroundColor: "#00695c",
+                                    fontWeight: "bold",
+                                    fontSize: 14
+                                }}
+                                onClick={methods.handleSubmit(registerUser)}
+                            >
+                                Sign Up
+                            </Button>
+                            <Grid container justifyContent="flex-end">
+                                <Grid item>
+                                    {/* <Link href="#" variant="body2">
                                     Already have an account? Sign in
                                 </Link> */}
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Box>
+                        </Box>
+                    </FormProvider>
                 </Box>
-            </Container>
-        </ThemeProvider>
+            </Container >
+        </ThemeProvider >
     );
 }
 
-let registerUser = async (e) => {
-    e.preventDefault()
-    const f_data = new FormData(e.currentTarget);
+let registerUser = async (data) => {
     let response = await fetch('http://127.0.0.1:8000/api/register_customer/',
         {
             method: 'POST',
@@ -169,18 +185,18 @@ let registerUser = async (e) => {
             },
             body: JSON.stringify({
                 "user": {
-                    "username": f_data.get('username'),
-                    "email": f_data.get('email'),
-                    "first_name": f_data.get('first_name'),
-                    "last_name": f_data.get('last_name'),
-                    "password": f_data.get('password')
+                    "username": data.username,
+                    "email": data.email,
+                    "first_name": data.first_name,
+                    "last_name": data.last_name,
+                    "password": data.password
                 },
-                "phone": f_data.get('phone'),
-                "address": f_data.get('address')
+                "phone": data.phone,
+                "address": data.address
             })
         })
 
-    let data = await response.json()
+    let response_data = await response.json()
     if (response.status === 201) {
         console.log("registered successfully")
     }
