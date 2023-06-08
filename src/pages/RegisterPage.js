@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm, FormProvider } from "react-hook-form";
 import Input from '../components/Input';
-import './Register.css'
+
 
 const RegisterPage = () => {
     const methods = useForm();
@@ -29,7 +29,7 @@ const RegisterPage = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Typography component="h1" variant="h5" color="#00695c" sx={{ fontWeight: 'bold' }}>
+                    <Typography component="h1" variant="h5" color="#232F3E" sx={{ fontWeight: 'bold' }}>
                         Sign Up
                     </Typography>
                     <FormProvider {...methods}>
@@ -162,15 +162,14 @@ const RegisterPage = () => {
                             >
                                 Sign Up
                             </Button>
-                            <Grid container justifyContent="flex-end">
-                                <Grid item>
-                                <div className="centered-link">
-                                <p>Already have an account?
-                                 <Link href="/login" variant="body2">
-                                     log in
-                                </Link> 
-                                </p>
-                                </div>
+                            <Grid container justifyContent="center">
+                                <Grid item mb={2}>
+
+                                    Already have an account?
+                                    <Link color="#e47911" ml={1} href="/login" variant="body2">
+                                        Log In
+                                    </Link>
+
                                 </Grid>
                             </Grid>
                         </Box>

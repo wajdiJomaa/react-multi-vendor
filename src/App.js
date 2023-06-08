@@ -14,9 +14,9 @@ import RegisterPage from './pages/RegisterPage';
 function App() {
   return (
     <div>
-      <Navbar/>
       <Router>
       <AuthProvider>
+        <Navbar/>
         <Routes>
           <Route element={ <LoginRequired/>} path="/">
             <Route element= { <HomePage/>} path="/" exact />
