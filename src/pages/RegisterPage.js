@@ -102,17 +102,19 @@ const RegisterPage = () => {
                                     />
 
                                 </Grid>
-                                <Grid item xs={12} validate={{
-                                    required: {
-                                        value: true,
-                                        message: 'Field Required',
-                                    },
-                                    maxLength: {
-                                        value: 16,
-                                        message: 'max length is 16'
-                                    }
-                                }}>
-                                    <Input label="Address" name="address" />
+                                <Grid item xs={12}>
+                                    <Input label="Address" name="address" validate={{
+                                        required: {
+                                            value: true,
+                                            message: 'Field Required',
+                                        },
+                                        maxLength: {
+                                            value: 16,
+                                            message: 'max length is 16'
+                                        }
+                                    }}>
+
+                                    </Input>
                                 </Grid>
 
                                 <Grid item xs={12} sm={6}>

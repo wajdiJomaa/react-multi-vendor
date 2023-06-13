@@ -16,22 +16,21 @@ export const AuthProvider = ({children}) => {
 
     const navigate = useNavigate()
 
-    let loginUser = async (e) =>{
-        e.preventDefault()
+    let loginUser = async (data) =>{
         let response = await fetch('http://127.0.0.1:8000/api/token/',
                             {
                                 method:'POST',
                                 headers:{
                                     'Content-Type':'application/json'
                                 },
-                                body:JSON.stringify({'username':e.target.username.value, 'password':e.target.password.value})
+                                body:JSON.stringify({'username':data.username, 'password':data.password})
                             }
                             )
-        let data = await response.json()
+        let response_data = await response.json()
         if (response.status === 200){
-            setAuthTokens(data)
-            setUser(jwt_decode(data.access))
-            localStorage.setItem('authTokens',JSON.stringify(data))
+            setAuthTokens(response_data)
+            setUser(jwt_decode(response_data.access))
+            localStorage.setItem('authTokens',JSON.stringify(response_data))
             navigate('/')
         }
     }

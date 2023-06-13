@@ -31,7 +31,7 @@ function Navbar() {
         </div>
         <div class="nav-bb-right">
           {user ? (
-            <a href={logoutUser}>logout</a>) : (
+            <a onClick={logoutUser}>logout</a>) : (
             <>
               <a href="/register">Register</a>
               <a href="/login">Login</a>
