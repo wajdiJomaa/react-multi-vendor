@@ -39,7 +39,7 @@ function Navbar() {
           }
           <a href="/gp/help/customer/display.html/ref=nav_bb_help" class="nav-bb-lr-divider">Help</a>
           <a href="/gp/cart/view.html/ref=nav_bb_cart">Cart</a>
-          <a href="/registervendor">Sell</a>
+          <a href="/sell">Sell</a>
         </div>
 
 

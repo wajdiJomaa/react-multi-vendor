@@ -1,0 +1,90 @@
+.sell-products-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.sell-products-page h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.sell-products-page form {
+  display: flex;
+  flex-direction: column;
+}
+
+.sell-products-page form div {
+  margin-bottom: 15px;
+}
+
+.sell-products-page form label {
+  font-weight: bold;
+}
+
+.sell-products-page form input,
+.sell-products-page form textarea,
+.sell-products-page form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.sell-products-page form textarea {
+  height: 100px;
+}
+
+.sell-products-page form button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sell-products-page form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+.field-container {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-basis: calc(50% - 20px);
+  flex-grow: 1;
+}
+
+.field-row input[type='text'],
+.field-row input[type='number'] {
+  flex: 1;
+  margin-right: 10px;
+}
+.sell-products-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+.product-preview {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}

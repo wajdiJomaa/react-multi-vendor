@@ -10,6 +10,7 @@ import Navbar from './components/Navbar';
 import LoginRequired from './utils/LoginRequired';
 import NoLoginRequired from './utils/NoLoginRequired'
 import RegisterPage from './pages/RegisterPage';
+import SellProductsPage from './pages/VendorPage';
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
           <Route element={<NoLoginRequired/>} path="/login">
             <Route element={ <LogingPage/> } path="/login"/>
           </Route>  
+
+          <Route element={<NoLoginRequired/>} path="/sell">
+            <Route element= { <SellProductsPage/> } path="/sell" />
+          </Route>
           
         
         </Routes>
