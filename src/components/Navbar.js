@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import './Navbar.css';
 import AuthContext from '../context/AuthContext'
+import LetterAvatars from '../pages/profile';
 
 function Navbar() {
   let { user, logoutUser } = useContext(AuthContext)
@@ -41,7 +42,7 @@ function Navbar() {
           <a href="/gp/cart/view.html/ref=nav_bb_cart">Cart</a>
           <a href="/sell">Sell</a>
         </div>
-
+        <LetterAvatars/>
 
       </div>
 
