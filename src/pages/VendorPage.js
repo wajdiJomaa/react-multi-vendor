@@ -1,167 +1,182 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './css/CategorySection.css';
 
 const SellProductsPage = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
-  const [price, setPrice] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [image, setImage] = useState(null);
-  const [fields, setFields] = useState([]);
+  const [category, setCategory] = useState(-1);
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
+  // fetching categories from api
 
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
+  const [categories, set_categories] = useState([])
+
+  const getCategories = async () => {
+    let response = await fetch('http://127.0.0.1:8000/api/get_categories/',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    )
+    let response_data = await response.json()
+    if (response.status === 200) {
+      set_categories(response_data)
+      setCategory(response_data[0].id)
+      getCategoryOptions(response_data[0].id)
+    }
+  }
+
+
+  const [options, set_options] = useState([])
+
+  const getCategoryOptions = async (category_id) => {
+    let response = await fetch(`http://127.0.0.1:8000/api/get_category_options/${category_id}/`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    )
+    let response_data = await response.json()
+    if (response.status === 200) {
+      set_options(response_data)
+    }
+  }
+
+  const addOption = async () => {
+    const element = document.getElementById('add_option');
+
+    let response = await fetch('http://127.0.0.1:8000/api/add_category_option/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 'name': element.value, 'category': category })
+      }
+    )
+    let response_data = await response.json()
+    if (response.status === 201) {
+      set_options([...options, response_data])
+    }
+  }
+
+
+  useEffect(() => {
+    getCategories()
+  }, [])
+
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
+    getCategoryOptions(event.target.value);
   };
 
-  const handlePriceChange = (event) => {
-    setPrice(event.target.value);
-  };
 
-  const handleQuantityChange = (event) => {
-    setQuantity(event.target.value);
-  };
 
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
-  };
+  const handleSaveItem = async (e) => {
+    e.preventDefault()
+    let op = options.map((option) => {
+      let value = e.target[option.name].value
+      if (value == "") return null
+      else return { "category_option": option.id, "value": e.target[option.name].value }
+    }).filter((option) => { return option ? true : false })
 
-  const handleAddField = () => {
-    const newField = { name: '', value: '' };
-    setFields([...fields, newField]);
-  };
+    let image = e.target.image.files[0];
+    op = JSON.stringify(op)
 
-  const handleFieldChange = (index, fieldKey, event) => {
-    const updatedFields = [...fields];
-    updatedFields[index][fieldKey] = event.target.value;
-    setFields(updatedFields);
-  };
+    let formData = new FormData()
+    formData.append("title",e.target.title.value)
+    formData.append("description",e.target.description.value)
+    formData.append("price", e.target.price.value)
+    formData.append("countInStock", e.target.quantity.value)
+    formData.append("created_by",1)
+    formData.append("category", e.target.category.value)
+    formData.append("image",image)
+    
 
-  const handleRemoveField = (index) => {
-    const updatedFields = [...fields];
-    updatedFields.splice(index, 1);
-    setFields(updatedFields);
-  };
-
-  const handleSaveItem = () => {
-    // Save the item
-    const newItem = {
-      title,
-      description,
-      category,
-      price,
-      quantity,
-      image,
-      fields,
+    let response = await fetch('http://127.0.0.1:8000/api/add_product/',
+      {
+        method: 'POST',
+        body:formData 
+      }
+    )
+    let data = await response.json()
+    if (response.status === 201) {
     };
-    // Perform the necessary actions to save the item (e.g., API call, storing in state/Redux, etc.)
-    console.log('Item saved:', newItem);
-    // Reset form fields
-    setTitle('');
-    setDescription('');
-    setCategory('');
-    setPrice('');
-    setQuantity('');
-    setImage(null);
-    setFields([]);
-  };
+  }
 
   return (
     <div className="sell-products-page">
       <h1>Sell Products</h1>
-      <form>
+      <form id='add_product' onSubmit={handleSaveItem}>
         <div className="form-group">
           <label htmlFor="title">Title:</label>
-          <input type="text" id="title" value={title} onChange={handleTitleChange} />
+          <input type="text" id="title" name="title"/>
         </div>
         <div className="form-group">
           <label htmlFor="description">Description:</label>
-          <textarea id="description" value={description} onChange={handleDescriptionChange} />
+          <textarea name="description" />
         </div>
         <div className="form-group">
           <label htmlFor="category">Category:</label>
-          <select id="category" value={category} onChange={handleCategoryChange}>
-            <option value="">Select a category</option>
-            <option value="electronics">Electronics</option>
-            <option value="clothing">Clothing</option>
-            <option value="books">Books</option>
+          <select name="category" onChange={handleCategoryChange}  value={category}>
+            {categories.map((c) => {
+              return <option key={c.id} value={c.id}>{c.name}</option>
+            })}
+
           </select>
         </div>
         <div className="form-group">
           <label htmlFor="price">Price:</label>
-          <input type="text" id="price" value={price} onChange={handlePriceChange} />
+          <input type="text" name="price"/>
         </div>
         <div className="form-group">
           <label htmlFor="quantity">Quantity:</label>
-          <input type="number" id="quantity" value={quantity} onChange={handleQuantityChange} />
+          <input type="number" name="quantity" />
         </div>
         <div className="form-group">
           <label htmlFor="image">Image:</label>
-          <input type="file" id="image" onChange={handleImageChange} />
+          <input type="file" accept='image/*' id="image" name="image" />
         </div>
-        <div className="form-group">
-          <button type="button" onClick={handleAddField}>Add Field</button>
-        </div>
-        {fields.map((field, index) => (
-          <div className="form-group" key={index}>
-            <input
-              type="text"
-              placeholder="Field Name"
-              value={field.name}
-              onChange={(event) => handleFieldChange(index, 'name', event)}
-            />
-            <input
-              type="text"
-              placeholder="Field Value"
-              value={field.value}
-              onChange={(event) => handleFieldChange(index, 'value', event)}
-            />
-            <button type="button" onClick={() => handleRemoveField(index)}>Remove</button>
+
+        <div className="d-flex justify-content-between">
+
+          <label>Category Options</label>
+          <div className="d-flex">
+            <input plceholder="add option" id="add_option" />
+            <button type='button'  className="btn btn-primary" onClick={addOption}>+</button>
           </div>
-        ))}
-        <div className="form-group">
-          <button type="button" onClick={handleSaveItem}>Save Item</button>
         </div>
-        {title && (
-          <div className="product-preview">
-            <h2>Product Preview:</h2>
-            <p><strong>Title:</strong> {title}</p>
-            <p><strong>Description:</strong> {description}</p>
-            <p><strong>Category:</strong> {category}</p>
-            <p><strong>Price:</strong> {price}</p>
-            <p><strong>Quantity:</strong> {quantity}</p>
-            {fields.length > 0 && (
-              <>
-                <h3>Additional Fields:</h3>
-                <ul>
-                  {fields.map((field, index) => (
-                    <li key={index}>
-                      <strong>{field.name}: </strong>
-                      {field.value}
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
-            {image && (
-              <>
-                <h3>Product Image:</h3>
-                <img src={URL.createObjectURL(image)} alt="Product" />
-              </>
-            )}
-          </div>
-        )}
+
+        <table className="table">
+          <tbody>
+            {
+              options.map((option) => {
+                return (
+                  <tr key={option.id}>
+                    <td><label> {option.name} </label></td>
+                    <td>
+                      <div className="form-group">
+                        <input name={option.name} type="text" placeholder="value" form="add_product" />
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })
+            }
+
+          </tbody>
+        </table>
+
+        <div className="form-group">
+          <button type="submit">Save Item</button>
+        </div>
       </form>
     </div>
   );
 };
 
+
 export default SellProductsPage;
+

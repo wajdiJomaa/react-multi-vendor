@@ -36,7 +36,7 @@ const LogingPage = () => {
                         <Box component="form" noValidate onSubmit={(e) => e.preventDefault()} sx={{ mt: 3 }}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
-                                    <Input label="Username" name="username" validate={{
+                                    <Input label="Email Address" name="email" validate={{
                                         required: {
                                             value: true,
                                             message: 'Field Required',
