@@ -70,7 +70,7 @@ const LogingPage = () => {
                                 <Grid item mb={2}>
                                     Don't have an account?
                                     <Link color="#e47911" ml={1} href="/register" variant="body2">
-                                        Log In
+                                        Sign Up
                                     </Link>
 
                                 </Grid>
