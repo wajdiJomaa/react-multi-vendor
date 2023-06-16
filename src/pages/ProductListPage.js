@@ -1,54 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './css/ProductListPage.css';
 import LetterAvatars from './profile';
 
 const ProductDisplay = () => {
-  const products = [
-    {
-      id: 1,
-      title: 'Product 1',
-      price: 10,
-      image: '/images/Asus.png',
-      attributes: [
-        { name: 'Color', value: 'Red' },
-        { name: 'Size', value: 'Small' },
-      ],
-    },
-    {
-      id: 2,
-      title: 'Product 2',
-      price: 15,
-      image: '/images/Asus.png',
-      attributes: [
-        { name: 'Color', value: 'Blue' },
-        { name: 'Size', value: 'Medium' },
-      ],
-    },
-    // Add more products as needed
-  ];
+
+  const [products, SetProducts] = useState([])
+
+  const getProducts = async () => {
+    let response = await fetch('http://127.0.0.1:8000/api/get_vendor_products/1',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    )
+    let response_data = await response.json()
+    if (response.status === 200) {
+      SetProducts(response_data)
+    }
+  }
+
+  useEffect(()=>{
+    getProducts()
+  }, [])
+
 
   return (
     <div className="product-display">
-      <h1>Product Display</h1>
+      <h1>Your Products:</h1>
       <div className="product-list">
+
+
         {products.map((product) => (
+          
           <div key={product.id} className="product-card">
             <div className="product-image-container">
-              <img src={process.env.PUBLIC_URL + product.image} alt={product.title} className="product-image" />
+              <img src={product.image} alt={product.title} className="product-image" />
             </div>
             <div className="product-details">
               <h3 className="product-title">{product.title}</h3>
               <p className="product-price">Price: ${product.price}</p>
-              <ul className="attribute-list">
-                {product.attributes.map((attribute, index) => (
-                  <li key={index} className="attribute-item">
-                    <span className="attribute-name">{attribute.name}:</span> {attribute.value}
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         ))}
+
       </div>
     </div>
   );

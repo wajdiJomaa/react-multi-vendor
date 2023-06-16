@@ -64,7 +64,7 @@ const SellProductsPage = () => {
 
   useEffect(() => {
     getCategories()
-  }, [])
+  },[])
 
 
   const handleCategoryChange = (event) => {
@@ -72,7 +72,26 @@ const SellProductsPage = () => {
     getCategoryOptions(event.target.value);
   };
 
+  const addProductOptions = async (options, product_id) => {
+    
+    options.forEach(option => {
+        option["product"] = product_id
+    });
 
+    let response = await fetch('http://127.0.0.1:8000/api/add_product_categoryOptions/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(options)
+      }
+    )
+    let response_data = await response.json()
+    if (response.status === 201) {
+      
+    }
+  }
 
   const handleSaveItem = async (e) => {
     e.preventDefault()
@@ -83,26 +102,26 @@ const SellProductsPage = () => {
     }).filter((option) => { return option ? true : false })
 
     let image = e.target.image.files[0];
-    op = JSON.stringify(op)
 
     let formData = new FormData()
-    formData.append("title",e.target.title.value)
-    formData.append("description",e.target.description.value)
+    formData.append("title", e.target.title.value)
+    formData.append("description", e.target.description.value)
     formData.append("price", e.target.price.value)
     formData.append("countInStock", e.target.quantity.value)
-    formData.append("created_by",1)
+    formData.append("created_by", 1)
     formData.append("category", e.target.category.value)
-    formData.append("image",image)
-    
+    formData.append("image", image)
+
 
     let response = await fetch('http://127.0.0.1:8000/api/add_product/',
       {
         method: 'POST',
-        body:formData 
+        body: formData
       }
     )
     let data = await response.json()
     if (response.status === 201) {
+      addProductOptions(op, data["id"])
     };
   }
 
@@ -112,7 +131,7 @@ const SellProductsPage = () => {
       <form id='add_product' onSubmit={handleSaveItem}>
         <div className="form-group">
           <label htmlFor="title">Title:</label>
-          <input type="text" id="title" name="title"/>
+          <input type="text" id="title" name="title" />
         </div>
         <div className="form-group">
           <label htmlFor="description">Description:</label>
@@ -120,7 +139,7 @@ const SellProductsPage = () => {
         </div>
         <div className="form-group">
           <label htmlFor="category">Category:</label>
-          <select name="category" onChange={handleCategoryChange}  value={category}>
+          <select name="category" onChange={handleCategoryChange} value={category}>
             {categories.map((c) => {
               return <option key={c.id} value={c.id}>{c.name}</option>
             })}
@@ -129,7 +148,7 @@ const SellProductsPage = () => {
         </div>
         <div className="form-group">
           <label htmlFor="price">Price:</label>
-          <input type="text" name="price"/>
+          <input type="text" name="price" />
         </div>
         <div className="form-group">
           <label htmlFor="quantity">Quantity:</label>
@@ -145,7 +164,7 @@ const SellProductsPage = () => {
           <label>Category Options</label>
           <div className="d-flex">
             <input plceholder="add option" id="add_option" />
-            <button type='button'  className="btn btn-primary" onClick={addOption}>+</button>
+            <button type='button' className="btn btn-primary" onClick={addOption}>+</button>
           </div>
         </div>
 
