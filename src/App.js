@@ -1,4 +1,3 @@
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -15,6 +14,7 @@ import NoLoginRequired from './utils/NoLoginRequired'
 import RegisterPage from './pages/RegisterPage';
 import SellProductsPage from './pages/VendorPage';
 import ProductListPage from './pages/ProductListPage';
+import UserProfilePage from './pages/settings';
 
 function App() {
   return (
@@ -41,6 +41,10 @@ function App() {
 
           <Route element={<NoLoginRequired/>} path="/ListProduct">
             <Route element= { <ProductListPage/> } path="/ListProduct" />
+          </Route>
+
+          <Route element={<NoLoginRequired/>} path="/settings">
+            <Route element= { <UserProfilePage/> } path="/settings" />
           </Route>
           
         
