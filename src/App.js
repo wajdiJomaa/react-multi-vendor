@@ -15,6 +15,7 @@ import NoLoginRequired from './utils/NoLoginRequired'
 import RegisterPage from './pages/RegisterPage';
 import SellProductsPage from './pages/VendorPage';
 import ProductListPage from './pages/ProductListPage';
+import ProductDetails from './pages/ProductDetails';
 
 function App() {
   return (
@@ -42,6 +43,9 @@ function App() {
           <Route element={<NoLoginRequired/>} path="/ListProduct">
             <Route element= { <ProductListPage/> } path="/ListProduct" />
           </Route>
+
+          <Route element= { <ProductDetails/> } path="/product-details/:id"/>
+
           
         
         </Routes>
