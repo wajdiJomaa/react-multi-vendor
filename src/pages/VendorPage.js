@@ -102,7 +102,7 @@ const SellProductsPage = () => {
     }).filter((option) => { return option ? true : false })
 
     let image = e.target.image.files[0];
-
+    
     let formData = new FormData()
     formData.append("title", e.target.title.value)
     formData.append("description", e.target.description.value)

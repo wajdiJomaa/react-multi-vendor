@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './css/ProductListPage.css';
-import LetterAvatars from './profile';
+
 
 const ProductDisplay = () => {
   const [products, setProducts] = useState([]);
