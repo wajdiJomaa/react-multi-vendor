@@ -113,6 +113,7 @@ const RegisterPage = () => {
                                             message: 'max length is 16'
                                         }
                                     }}>
+                                        <div id="map"></div>
 
                                     </Input>
                                 </Grid>
@@ -214,6 +215,51 @@ let registerUser = async (data) => {
 export default RegisterPage
 
 
+// function initMap() {
+//     var lebanonCoordinates = { lat: 33.8547, lng: 35.8623 };  // Coordinates of Lebanon
+//     var map = new google.maps.Map(document.getElementById('map'), {
+//         center: lebanonCoordinates,
+//         zoom: 8
+//     });
 
+//     var marker = new google.maps.Marker({
+//        position: { lat: 33.8547, lng: 35.8623 },
+//         map: map,
+//         draggable: false
+//     });
+//     var initialLatitude = marker.getPosition().lat();
+//     var initialLongitude = marker.getPosition().lng();
+
+//     document.getElementById('id_latitude').value = initialLatitude;
+//     document.getElementById('id_longitude').value = initialLongitude;
+//     google.maps.event.addListener(map, 'click', function(event) {
+//         var clickedLocation = event.latLng;
+//         marker.setPosition(clickedLocation);
+//         var latitude = event.latLng.lat();
+//         var longitude = event.latLng.lng();
+
+//         document.getElementById('id_latitude').value = latitude;
+//         document.getElementById('id_longitude').value = longitude;
+//     });
+//     // Update the latitude and longitude fields when they are manually edited
+//     document.getElementById('id_latitude').addEventListener('input', function(event) {
+//     var latitude = parseFloat(event.target.value);
+//     if (!isNaN(latitude)) {
+//         var position = marker.getPosition();
+//         position.lat(latitude);
+//         marker.setPosition(position);
+//     }
+// });
+
+//     document.getElementById('id_longitude').addEventListener('input', function(event) {
+//     var longitude = parseFloat(event.target.value);
+//     if (!isNaN(longitude)) {
+//         var position = marker.getPosition();
+//         position.lng(longitude);
+//         marker.setPosition(position);
+//     }
+// });
+// <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap" async defer></script>
+// }
 
 
