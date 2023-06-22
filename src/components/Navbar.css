@@ -1,6 +1,4 @@
-.container {
-    background: linear-gradient(to bottom, #ff0000, #0000ff);
-  }
+
   
   #navbar, #nav-upnav, #nav-upnav-airy {
       display: none !important;
@@ -58,6 +56,18 @@
       float: none;
       height: 100%;
     }
+
+    .logo-container {
+      position: relative;
+      top: 15px; /* Adjust the value to move the image up */
+      left: 10px; /* Adjust the value to move the image to the right */
+    }
+    
+    .logo-image {
+      width: 120px; /* Adjust the width to your desired size */
+      height: auto; /* Maintain the aspect ratio */
+    }
+    
     
     .nav-bb-right {
       display: flex;

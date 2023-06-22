@@ -14,6 +14,7 @@ import NoLoginRequired from './utils/NoLoginRequired'
 import RegisterPage from './pages/RegisterPage';
 import SellProductsPage from './pages/VendorPage';
 import ProductListPage from './pages/ProductListPage';
+import Dashboard from './pages/dashboard';
 
 import UserProfilePage from './pages/settings';
 import ProductDetails from './pages/ProductDetails';
@@ -51,8 +52,14 @@ function App() {
           <Route element={<NoLoginRequired/>} path="/settings">
             <Route element= { <UserProfilePage/> } path="/settings" />
           </Route>
-
+          
+          <Route element={<NoLoginRequired/>} path="/product-details/:id">
           <Route element= { <ProductDetails/> } path="/product-details/:id"/>
+          </Route>
+
+          <Route element={<NoLoginRequired/>} path="/dashboard">
+          <Route element= { <Dashboard/> } path="/dashboard"/>
+          </Route>
         
         </Routes>
         </AuthProvider>

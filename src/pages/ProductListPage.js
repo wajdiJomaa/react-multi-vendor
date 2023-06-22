@@ -25,7 +25,7 @@ const ProductDisplay = () => {
 
   return (
     <div className="product-display">
-      <h1>Your Products:</h1>
+      <h1>My Products:</h1>
       <div className="product-list">
         {products.map((product) => (
           <div key={product.id} className="product-card">
