@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm, FormProvider } from "react-hook-form";
 import Input from '../components/Input';
+import MapComponent from './MapComponent';
 
 
 const RegisterPage = () => {
@@ -19,7 +20,9 @@ const RegisterPage = () => {
     const defaultTheme = createTheme();
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs">
+        
+
+            <Container component="main" maxWidth={false} sx={{ display: 'flex', alignItems: 'center' }}>
                 <CssBaseline />
                 <Box
                     sx={{
@@ -151,6 +154,8 @@ const RegisterPage = () => {
 
                                 </Grid>
                             </Grid>
+                             <MapComponent /> 
+                            
                             <Button
                                 type="submit"
                                 fullWidth

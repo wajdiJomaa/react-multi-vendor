@@ -13,7 +13,7 @@ function Navbar() {
       <div class="nav-bb">
         <div class="nav-bb-left">
         <div className="col-xl-1 col-lg-1 col-md-1 col-sm-3 logo-container">
-          <img src = {logo} alt=""/>
+          
           </div>
         </div>
         <div class="nav-bb-center" id="nav-bb-searchbar">
@@ -30,11 +30,13 @@ function Navbar() {
           {user ? (
             <a onClick={logoutUser}>logout</a>) : (
             <>
-              <a href="/register">Register</a>
+              {/* <a href="/register">Register</a> */}
               <a href="/login">Login</a>
             </>)
           }
-          <a href="/gp/help/customer/display.html/ref=nav_bb_help" class="nav-bb-lr-divider">Help</a>
+
+          <a href="/dashboard">Dashboard</a>
+          <a href="/register">register</a>
           <a href="/sell">Sell</a>
           <a href="/ListProduct">MyProducts</a>
         </div>

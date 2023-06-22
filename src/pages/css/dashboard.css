@@ -1,0 +1,50 @@
+/* Dashboard Container */
+.dashboard-container {
+    padding: 20px;
+  }
+  
+  /* Section Headers */
+  .dashboard-section-header {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  /* Loading Indicator */
+  .dashboard-loading {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  /* Table */
+  .dashboard-table {
+    margin-bottom: 20px;
+  }
+  
+  /* Modal */
+  .dashboard-modal {
+    width: 400px;
+  }
+  
+  /* Form */
+  .dashboard-form {
+    margin-top: 20px;
+  }
+  
+  /* Form Item */
+  .dashboard-form-item {
+    margin-bottom: 15px;
+  }
+  
+  /* Save Button */
+  .dashboard-save-button {
+    margin-top: 20px;
+  }
+  .circular-diagram-container-small {
+    width: 250px; /* Adjust the width as desired */
+    height: 250px;
+    justify-content: center;
+  align-items: center;
+  margin: 0 auto;  /* Adjust the height as desired */
+  }
+  
+  
