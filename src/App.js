@@ -20,6 +20,9 @@ import ProductDetails from './pages/ProductDetails';
 
 
 function App() {
+  console.log(
+    "hi"
+  )
   return (
     <div>
       <Router>
