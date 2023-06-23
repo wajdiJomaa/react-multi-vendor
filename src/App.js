@@ -23,6 +23,7 @@ import ProductDetails from './pages/ProductDetails';
 function App() {
   return (
     <div>
+      {console.log("loop")}
       <Router>
       <AuthProvider>
         <Navbar/>

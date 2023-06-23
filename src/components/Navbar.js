@@ -36,7 +36,7 @@ function Navbar() {
           }
 
           <a href="/dashboard">Dashboard</a>
-          <a href="/register">register</a>
+      
           <a href="/sell">Sell</a>
           <a href="/ListProduct">MyProducts</a>
         </div>

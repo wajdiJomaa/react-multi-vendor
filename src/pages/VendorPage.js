@@ -6,7 +6,10 @@ const SellProductsPage = () => {
 
   // fetching categories from api
 
-  const [categories, set_categories] = useState([])
+  const [categories, set_categories] = useState([]);
+  const [isNew, setIsNew] = useState(false); 
+  const [discount, setDiscount] = useState(0); 
+  
 
   const getCategories = async () => {
     let response = await fetch('http://127.0.0.1:8000/api/get_categories/',
@@ -107,9 +110,11 @@ const SellProductsPage = () => {
     formData.append("title", e.target.title.value)
     formData.append("description", e.target.description.value)
     formData.append("price", e.target.price.value)
+    formData.append("discount", e.target.discount.value)
     formData.append("countInStock", e.target.quantity.value)
     formData.append("created_by", 1)
     formData.append("category", e.target.category.value)
+    formData.append("is_new", e.target.is_new.checked)
     formData.append("image", image)
 
 
@@ -137,6 +142,26 @@ const SellProductsPage = () => {
           <label htmlFor="description">Description:</label>
           <textarea name="description" />
         </div>
+        <div className="form-group">
+        <label htmlFor="is_new">Is New:</label>
+        <input
+          type="checkbox"
+          id="is_new"
+          name="is_new"
+          checked={isNew}
+          onChange={(e) => setIsNew(e.target.checked)}
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="discount">Discount:</label>
+        <input
+          type="text"
+          name="discount"
+          value={discount}
+          onChange={(e) => setDiscount(e.target.value)}
+        />
+      </div>
         <div className="form-group">
           <label htmlFor="category">Category:</label>
           <select name="category" onChange={handleCategoryChange} value={category}>
