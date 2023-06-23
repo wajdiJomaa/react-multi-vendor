@@ -36,7 +36,7 @@ const RegisterPage = () => {
                         Sign Up
                     </Typography>
                     <FormProvider {...methods}>
-                        <Box component="form" noValidate onSubmit={(e) => e.preventDefault()} sx={{ mt: 3 }}>
+                        <Box component="form" noValidate onSubmit={(e) => e.preventDefault()} sx={{ mt: 3}}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
                                     <Input label="First Name" name="first_name"
