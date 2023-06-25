@@ -2,9 +2,8 @@ import React, { useEffect, useMemo ,  useState  } from 'react';
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import "./css/map.css"
 
-const MapComponent = () => {
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
+const MapComponent = ( { handleLatitude, handleLongitude, latitude, longitude }) => {
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
@@ -14,18 +13,21 @@ const MapComponent = () => {
     zoomControl: true
   };
 
-  const center = useMemo(() => ({ lat: 33.8547, lng: 35.8623 }), []);
+  const center = useMemo(() => ({ lat: parseFloat(latitude), lng: parseFloat(longitude) }), []);
 
 
     const initMap  = (map) => {
-
+      console.log("init is called")
       // Create a marker variable
-      let marker;
+      let position = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
 
-      // Function to update the marker position
+      let marker = new window.google.maps.Marker({
+        position: position,
+        map: map,
+      });
+      // // Function to update the marker position
       const updateMarkerPosition = (latitude, longitude) => {
-        const position = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
-
+      const position = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
         // Remove existing marker if it exists
         if (marker) {
           marker.setMap(null);
@@ -40,50 +42,43 @@ const MapComponent = () => {
 
       // Add a click event listener to the map
       map.addListener('click', (event) => {
-        const latitudeInput = document.getElementById('id_latitude');
-        const longitudeInput = document.getElementById('id_longitude');
-        const latitude = event.latLng.lat();
-        const longitude = event.latLng.lng();
+        // const latitudeInput = document.getElementById('id_latitude');
+        // const longitudeInput = document.getElementById('id_longitude');
+        const lat = event.latLng.lat();
+        const long = event.latLng.lng();
 
+        updateMarkerPosition(lat, long)
         // Update the input values
-        latitudeInput.value = latitude;
-        longitudeInput.value = longitude;
+        handleLatitude(lat)
+        handleLongitude(long)
 
         // Update the marker position
-        updateMarkerPosition(latitude, longitude);
+        // updateMarkerPosition(latitude, longitude);
       });
 
       // Function to handle changes in the latitude input
-      const handleLatitudeChange = (event) => {
-        const latitude = event.target.value;
-        const longitude = document.getElementById('id_longitude').value;
+      // const handleLatitudeChange = (event) => {
+      //   const latitude = event.target.value;
+      //   const longitude = document.getElementById('id_longitude').value;
 
-        // Update the marker position
-        updateMarkerPosition(latitude, longitude);
-      };
+      //   // Update the marker position
+      //   updateMarkerPosition(latitude, longitude);
+      // };
 
-      // Function to handle changes in the longitude input
-      const handleLongitudeChange = (event) => {
-        const latitude = document.getElementById('id_latitude').value;
-        const longitude = event.target.value;
+      // // Function to handle changes in the longitude input
+      // const handleLongitudeChange = (event) => {
+      //   const latitude = document.getElementById('id_latitude').value;
+      //   const longitude = event.target.value;
 
-        // Update the marker position
-        updateMarkerPosition(latitude, longitude);
-      };
+      //   // Update the marker position
+      //   updateMarkerPosition(latitude, longitude);
+      // };
 
       // Add event listeners to the latitude and longitude inputs
-      document.getElementById('id_latitude').addEventListener('input', handleLatitudeChange);
-      document.getElementById('id_longitude').addEventListener('input', handleLongitudeChange);
+      // document.getElementById('id_latitude').addEventListener('input', handleLatitudeChange);
+      // document.getElementById('id_longitude').addEventListener('input', handleLongitudeChange);
     
     }
-
-    const handleMapClick = (event) => {
-      const latitude = event.latLng.lat();
-      const longitude = event.latLng.lng();
-    
-      setLatitude(latitude);
-      setLongitude(longitude);
-    };
 
 
   return (
@@ -100,10 +95,10 @@ const MapComponent = () => {
           options={options}
         ></GoogleMap>
       <label htmlFor="id_latitude">Latitude:</label>
-      <input type="text" id="id_latitude" />
+      <input type="text" id="id_latitude" disabled value={latitude}/>
       <div>
       <label htmlFor="id_longitude">Longitude:</label>
-      <input type="text" id="id_longitude" />
+      <input type="text" id="id_longitude" disabled value={longitude}/>
       </div>
       </>
       )}
