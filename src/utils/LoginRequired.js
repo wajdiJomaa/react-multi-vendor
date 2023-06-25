@@ -1,12 +1,11 @@
-import {Outlet, Navigate} from 'react-router-dom'
-import { useContext } from 'react';
-import AuthContext from '../context/AuthContext';
+import { Outlet, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const LoginRequired = () => {
-    let {user} = useContext(AuthContext)
-    return (
-        user ? <Outlet/> : <Navigate to="/login" />
-    )
-}
+  const { user } = useContext(AuthContext);
+  console.log("user in login", user);
+  return user?.token_type ? <Outlet /> : <Navigate to="/login" />;
+};
 
 export default LoginRequired;
