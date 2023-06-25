@@ -18,6 +18,8 @@ import Dashboard from './pages/dashboard';
 
 import UserProfilePage from './pages/settings';
 import ProductDetails from './pages/ProductDetails';
+import Channels from './pages/channels';
+import Chat from './pages/chat';
 
 
 function App() {
@@ -59,6 +61,14 @@ function App() {
 
           <Route element={<NoLoginRequired/>} path="/dashboard">
           <Route element= { <Dashboard/> } path="/dashboard"/>
+          </Route>
+
+          <Route element={<NoLoginRequired/>} path="/channels">
+          <Route element= { <Channels/> } path="/channels"/>
+          </Route>
+
+          <Route element={<NoLoginRequired/>} path="/chat/:room_name/:receiver">
+          <Route element= { <Chat/> } path="/chat/:room_name/:receiver"/>
           </Route>
         
         </Routes>
