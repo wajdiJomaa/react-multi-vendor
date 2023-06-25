@@ -1,40 +1,44 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo ,  useState  } from 'react';
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
-import "./css/map.css";
+import "./css/map.css"
 
 const MapComponent = ( { handleLatitude, handleLongitude, latitude, longitude }) => {
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
   const options = {
     disableDefaultUI: true,
-    zoomControl: true,
+    zoomControl: true
   };
 
   const center = useMemo(() => ({ lat: parseFloat(latitude), lng: parseFloat(longitude) }), []);
 
- 
-  const initMap  = (map) => {
-    console.log("init is called")
-    // Create a marker variable
-    let position = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
 
-      // Function to update the marker position
+    const initMap  = (map) => {
+      console.log("init is called")
+      // Create a marker variable
+      let position = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
+
+      let marker = new window.google.maps.Marker({
+        position: position,
+        map: map,
+      });
+      // // Function to update the marker position
       const updateMarkerPosition = (latitude, longitude) => {
-        const position = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
-
+      const position = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
         // Remove existing marker if it exists
         if (marker) {
           marker.setMap(null);
         }
 
-      // Create a new marker at the updated position
-      marker = new window.google.maps.Marker({
-        position: position,
-        map: map,
-      });
-    };
+        // Create a new marker at the updated position
+        marker = new window.google.maps.Marker({
+          position: position,
+          map: map,
+        });
+      };
 
       // Add a click event listener to the map
       map.addListener('click', (event) => {
@@ -61,10 +65,10 @@ const MapComponent = ( { handleLatitude, handleLongitude, latitude, longitude })
       //   updateMarkerPosition(latitude, longitude);
       // };
 
-      // Function to handle changes in the longitude input
-      const handleLongitudeChange = (event) => {
-        const latitude = document.getElementById('id_latitude').value;
-        const longitude = event.target.value;
+      // // Function to handle changes in the longitude input
+      // const handleLongitudeChange = (event) => {
+      //   const latitude = document.getElementById('id_latitude').value;
+      //   const longitude = event.target.value;
 
       //   // Update the marker position
       //   updateMarkerPosition(latitude, longitude);
@@ -79,7 +83,7 @@ const MapComponent = ( { handleLatitude, handleLongitude, latitude, longitude })
 
   return (
     <div>
-      {!isLoaded ? (
+        {!isLoaded ? (
         <h1>Loading...</h1>
       ) : (
         <>
@@ -100,6 +104,7 @@ const MapComponent = ( { handleLatitude, handleLongitude, latitude, longitude })
       )}
     </div>
   );
+
 };
 
 export default MapComponent;
