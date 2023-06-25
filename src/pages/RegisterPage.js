@@ -14,10 +14,22 @@ import MapComponent from "./MapComponent";
 const RegisterPage = () => {
   const methods = useForm();
   const defaultTheme = createTheme();
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  const [latitude, setLatitude] = useState('33.8547');
+  const [longitude, setLongitude] = useState('35.8623');
+
+
+  const handleLatitude = (e) => {
+    setLatitude(e)
+  }
+
+
+  const handleLongitude = (e) => {
+    setLongitude(e)
+  }
+
 
   const registerUser = async (data) => {
+    console.log(longitude)
     try {
       const response = await fetch("http://127.0.0.1:8000/api/add_vendor/", {
         method: "POST",
@@ -36,12 +48,10 @@ const RegisterPage = () => {
           longitude: longitude, // Use the longitude state variable here
         }),
       });
-      {
-        console.log(response.json);
-      }
+      console.log(response)
 
-      if (response.ok) {
-        console.log("Registration successful");
+      if (response.status == 201) {
+        console.log('Registration successful');
         // Handle successful registration, e.g., show success message, redirect user, etc.
       } else {
         console.error("Registration failed");
@@ -172,10 +182,7 @@ const RegisterPage = () => {
                   >
                     Set Location
                   </Typography>
-                  <MapComponent
-                    setLatitude={setLatitude}
-                    setLongitude={setLongitude}
-                  />
+                  <MapComponent handleLatitude={handleLatitude} handleLongitude={handleLongitude} latitude={latitude} longitude={longitude} />
                 </Grid>
               </Grid>
               <Button
