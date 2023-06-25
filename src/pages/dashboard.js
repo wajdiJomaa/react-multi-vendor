@@ -203,8 +203,14 @@ const Dashboard = () => {
           <>
             {renderCircularDiagram()}
             <Table dataSource={reviews} pagination={paginationConfig}>
-              <Table.Column title="Review ID" dataIndex="id" key="id" />
+            <Table.Column title= 'Product Name' dataIndex= 'title' key= 'title' />,
               <Table.Column title="Customer Name" dataIndex="customer" key="customer" />
+              <Table.Column
+              title='Image'
+              dataIndex='image'
+              key='image'
+              render={(image) => <img src={image} alt='Product' className="product-image1" />}
+              />
               <Table.Column title="Rating" dataIndex="rating" key="rating" />
               <Table.Column title="Comment" dataIndex="comment" key="comment" />
             </Table>

@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import './Navbar.css';
 import AuthContext from '../context/AuthContext'
-import LetterAvatars from '../pages/profile';
 import logo from '../images/logo1.png'
 
 function Navbar() {
@@ -27,20 +26,22 @@ function Navbar() {
           </form>
         </div>
         <div class="nav-bb-right">
-          {user ? (
-            <a onClick={logoutUser}>logout</a>) : (
-            <>
-              {/* <a href="/register">Register</a> */}
-              <a href="/login">Login</a>
-            </>)
-          }
+        {user ? (
+        <a onClick={logoutUser}>Logout</a>
+      ) : (
+        <>
+          {/* <a href="/register">Register</a> */}
+          <a href="/login">Login</a>
+        </>
+      )}
 
           <a href="/dashboard">Dashboard</a>
       
           <a href="/sell">Sell</a>
           <a href="/ListProduct">MyProducts</a>
+          <a href="/settings">myprofile</a>
         </div>
-        <LetterAvatars/>
+        
 
       </div>
 

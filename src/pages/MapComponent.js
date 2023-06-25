@@ -1,8 +1,10 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo ,  useState  } from 'react';
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import "./css/map.css"
 
 const MapComponent = () => {
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
@@ -74,6 +76,14 @@ const MapComponent = () => {
       document.getElementById('id_longitude').addEventListener('input', handleLongitudeChange);
     
     }
+
+    const handleMapClick = (event) => {
+      const latitude = event.latLng.lat();
+      const longitude = event.latLng.lng();
+    
+      setLatitude(latitude);
+      setLongitude(longitude);
+    };
 
 
   return (
